@@ -2,6 +2,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/Models/User.dart';
 import 'package:e_commerce/Providers/Modal_hud.dart';
+import 'package:e_commerce/Providers/admin_data.dart';
+import 'package:e_commerce/Providers/user_data.dart';
 import 'package:e_commerce/Screens/Admin/Admin_home_screen.dart';
 import 'package:e_commerce/Screens/User/User_home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,7 +14,6 @@ class Auth
 {
   FirebaseAuth _auth=FirebaseAuth.instance;
   final CollectionReference _userCollection=FirebaseFirestore.instance.collection('Users');
-  //final CollectionReference _cinemaCollection=FirebaseFirestore.instance.collection('Cinema');
 
   Future<void> signIn({required String email , required String password ,required context}) async
   {
@@ -25,9 +26,7 @@ class Auth
           name: (value2)['name'],
           type: (value2)['type'],
         );
-       // final instance = Provider.of<Modelhud>(context, listen: false);
         final instance = Provider.of<ModalHud>(context, listen: false);
-        // Provider.of<UserData>(context , listen: false).setUser(userModel);
         if(type=='User')
         {
           Navigator.pushReplacementNamed(context, UserHomeScreen.id);
@@ -35,6 +34,7 @@ class Auth
         }
         else if (type=='Admin')
         {
+          Provider.of<AdminData>(context , listen: false).setUser(userModel);
           Navigator.pushReplacementNamed(context, AdminHomeScreen.id);
           instance.changeIsLoading(false);
         }
@@ -52,13 +52,17 @@ class Auth
         type: 'User',
       );
       await Adduserdata(usermodel);
-      //Provider.of<UserData>(context , listen: false).setUser(usermodel);
+      Provider.of<UserData>(context , listen: false).setUser(usermodel);
     });
 
   }
   Future<void> Adduserdata(UserModel userModel) async
   {
     return await _userCollection.doc(userModel.id).set(userModel.toJson());
+  }
+  void signOut() async
+  {
+    await _auth.signOut();
   }
 
 

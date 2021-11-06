@@ -1,3 +1,4 @@
+import 'package:e_commerce/Providers/admin_data.dart';
 import 'package:e_commerce/Screens/Admin/Admin_home_screen.dart';
 import 'package:e_commerce/Screens/Auth/Login_Screen.dart';
 import 'package:e_commerce/Screens/Auth/Registartion_Screen.dart';
@@ -20,6 +21,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<ModalHud>(create: (context) => ModalHud(),),
+        ChangeNotifierProvider<AdminData>(create: (context) => AdminData(),),
+
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

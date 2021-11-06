@@ -9,7 +9,10 @@ import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   static String id='LoginScreenID';
+
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
+
+
   TextEditingController emailController=TextEditingController();
   TextEditingController passwordController=TextEditingController();
 
@@ -73,7 +76,6 @@ class LoginScreen extends StatelessWidget {
                           try
                           {
                             await auth.signIn(email: emailController.text , password: passwordController.text , context: context);
-
                           }
                           catch (e) {
                             instance.changeIsLoading(false);
