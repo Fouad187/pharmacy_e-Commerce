@@ -29,6 +29,7 @@ class Auth
         final instance = Provider.of<ModalHud>(context, listen: false);
         if(type=='User')
         {
+          Provider.of<UserData>(context , listen: false).setUser(userModel);
           Navigator.pushReplacementNamed(context, UserHomeScreen.id);
           instance.changeIsLoading(false);
         }

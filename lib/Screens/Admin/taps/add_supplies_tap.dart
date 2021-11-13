@@ -19,7 +19,7 @@ class AddSuppliesTap extends StatefulWidget {
 class _AddSuppliesTapState extends State<AddSuppliesTap> {
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  String? name ,description,price,brand,weight;
+  String? name ,description,price,brand,type;
   AdminServices adminServices=AdminServices();
   File? _pickedimage;
   final ImagePicker _picker=ImagePicker();
@@ -151,20 +151,20 @@ class _AddSuppliesTapState extends State<AddSuppliesTap> {
                     const SizedBox(height: 10,),
                     TextFormField(
                       decoration: InputDecoration(
-                        hintText: 'Equipment Supplies in Kg',
+                        hintText: 'Supplies Type',
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(15) ,),
 
                       ),
                       validator: (value){
                         if(value!.isEmpty)
                         {
-                          return  'Please Enter Supplies Weight';
+                          return  'Please Enter Supplies Type';
                         }
                       },
                       onChanged: (value)
                       {
                         setState(() {
-                          weight=value;
+                          type=value;
                         });
                       },
                     ),
@@ -193,7 +193,7 @@ class _AddSuppliesTapState extends State<AddSuppliesTap> {
                                 name: name!,
                                 price: price!,
                                 brand: brand!,
-                                weight: weight!,
+                                type: type!,
                                 context: context,
                               );
                               Navigator.pushReplacementNamed(context, AdminHomeScreen.id);

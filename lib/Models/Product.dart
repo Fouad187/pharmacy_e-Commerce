@@ -1,16 +1,18 @@
-class EquipmentAndSupplies
+class Product
 {
   late String id;
   late String name;
   late String brand;
-  late String weight;
+  late String type;
   late String price;
   late String description;
   late String image;
   String? docId;
-  EquipmentAndSupplies({required this.id , required this.name,required this.brand , required this.image,required this.description , required this.weight , required this.price});
+  double? totalPrice;
+  int? quantity;
+  Product({required this.id , required this.name,required this.brand , required this.image,required this.description , required this.type , required this.price});
 
-  EquipmentAndSupplies.fromJson(Map<String,dynamic> map)
+  Product.fromJson(Map<String,dynamic> map)
   {
     if(map==null)
     {
@@ -21,7 +23,7 @@ class EquipmentAndSupplies
       id = map['id'];
       name=map['name'];
       description=map['description'];
-      weight=map['weight'];
+      type=map['type'];
       price=map['price'];
       brand=map['brand'];
       image = map['image'];
@@ -34,7 +36,7 @@ class EquipmentAndSupplies
       'id' : id,
       'name' : name,
       'description' : description,
-      'weight' : weight,
+      'type' : type,
       'price': price,
       'brand' : brand,
       'image' : image,

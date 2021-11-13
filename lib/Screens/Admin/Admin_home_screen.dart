@@ -1,3 +1,8 @@
+import 'package:e_commerce/Providers/admin_data.dart';
+import 'package:e_commerce/Screens/Admin/admin_all_equipment.dart';
+import 'package:e_commerce/Screens/Admin/admin_all_medicine.dart';
+import 'package:e_commerce/Screens/Admin/admin_all_orders.dart';
+import 'package:e_commerce/Screens/Admin/admin_all_supplies.dart';
 import 'package:e_commerce/Screens/Admin/taps/add_equipment_tap.dart';
 import 'package:e_commerce/Screens/Admin/taps/add_medicine_tap.dart';
 import 'package:e_commerce/Screens/Admin/taps/add_supplies_tap.dart';
@@ -5,6 +10,7 @@ import 'package:e_commerce/Screens/Admin/taps/admin_home_tap.dart';
 import 'package:e_commerce/Screens/Auth/Login_Screen.dart';
 import 'package:e_commerce/Services/Auth_Services.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../constant.dart';
 
@@ -61,11 +67,9 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 title: const Text('My Medicines', style: TextStyle(color: Colors.black),),
                 leading: Icon(Icons.medical_services, color: Kcolor),
                 onTap: (){
-                /*  Provider.of<UserData>(context,listen: false).getMyEggs(farmId: user.id).then((value) {
-                    Navigator.pushNamed(context, MyEggScreen.id);
+                  Provider.of<AdminData>(context,listen: false).getMedicine().then((value) {
+                    Navigator.pushNamed(context,AdminAllMedicineScreen.id);
                   });
-
-                 */
                 },
 
               ),
@@ -73,28 +77,27 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 title: const Text('My Equipments', style: TextStyle(color: Colors.black),),
                 leading: Icon(Icons.accessible_forward_sharp, color: Kcolor),
                 onTap: (){
-                 /* Provider.of<UserData>(context,listen: false).getMyChickens(farmId: user.id).then((value) {
-                    Navigator.pushNamed(context, MyChickensScreen.id);
+                  Provider.of<AdminData>(context,listen: false).getEquipment().then((value) {
+                    Navigator.pushNamed(context,AdminAllEquipmentScreen.id);
                   });
-                  */
                 },
               ),
               ListTile(
                 title: const Text('My Supplies', style: TextStyle(color: Colors.black),),
                 leading: Icon(Icons.widgets, color: Kcolor),
                 onTap: (){
-                 /* Provider.of<UserData>(context,listen: false).getMyLittleChickens(farmId: user.id).then((value) {
-                    Navigator.pushNamed(context, MyLittleChickenScreen.id);
+                  Provider.of<AdminData>(context,listen: false).getSupplies().then((value) {
+                    Navigator.pushNamed(context,AdminAllSuppliesScreen.id);
                   });
-
-                  */
                 },
               ),
               ListTile(
                 title: const Text('All Orders', style: TextStyle(color: Colors.black),),
                 leading: Icon(Icons.reorder, color: Kcolor),
                 onTap: (){
-                 // Navigator.pushNamed(context,AllOrderScreen.id);
+                  Provider.of<AdminData>(context,listen: false).getAllOrders().then((value) {
+                    Navigator.pushNamed(context,AdminAllOrdersScreen.id);
+                  });
                 },
               ),
               ListTile(

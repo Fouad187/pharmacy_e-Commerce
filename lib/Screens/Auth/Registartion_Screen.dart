@@ -92,9 +92,10 @@ class RegistrationScreen extends StatelessWidget {
                                 email: emailController.text,
                                 password: passwordController.text,
                                 context: context,
-                              );
-                              instance.changeIsLoading(false);
-                              Navigator.pushNamedAndRemoveUntil(context, UserHomeScreen.id , (route)=> false);
+                              ).then((value) {
+                                instance.changeIsLoading(false);
+                                Navigator.pushNamedAndRemoveUntil(context, UserHomeScreen.id , (route)=> false);
+                              });
                             }
                             catch (e) {
                               instance.changeIsLoading(false);

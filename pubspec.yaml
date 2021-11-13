@@ -30,6 +30,7 @@ dependencies:
   flutter_svg: ^0.22.0
   image_picker: ^0.8.4+3
   fluttertoast: ^8.0.8
+  flutter_multi_formatter: ^2.4.1
 
 
 

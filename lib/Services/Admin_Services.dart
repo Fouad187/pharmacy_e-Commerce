@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce/Models/Equipment.dart';
-import 'package:e_commerce/Models/Medicine.dart';
+import 'package:e_commerce/Models/Product.dart';
 import 'package:e_commerce/Models/User.dart';
+import 'package:e_commerce/Models/order_model.dart';
 import 'package:e_commerce/Providers/admin_data.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +15,7 @@ class AdminServices
 {
 
 
-  void addNewEquipment({required String name, required String description ,required String price, required File image,required String brand ,required String weight, context}) async
+  void addNewEquipment({required String name, required String description ,required String price, required File image,required String brand ,required String type, context}) async
   {
     UserModel? user=Provider.of<AdminData>(context , listen: false).user;
 
@@ -24,21 +24,21 @@ class AdminServices
     final url=await ref.getDownloadURL();
 
 
-    EquipmentAndSupplies equipment=EquipmentAndSupplies(
+    Product equipment=Product(
       id: user!.id,
       name: name,
       description: description,
       image: url,
       price: price,
       brand: brand,
-      weight: weight,
+      type: type,
     );
 
 
     await FirebaseFirestore.instance.collection('Equipments').doc().set(equipment.toJson());
 
   }
-  void addNewSupplies({required String name, required String description ,required String price, required File image,required String brand ,required String weight, context}) async
+  void addNewSupplies({required String name, required String description ,required String price, required File image,required String brand ,required String type, context}) async
   {
     UserModel? user=Provider.of<AdminData>(context , listen: false).user;
 
@@ -47,14 +47,14 @@ class AdminServices
     final url=await ref.getDownloadURL();
 
 
-    EquipmentAndSupplies equipment=EquipmentAndSupplies(
+    Product equipment=Product(
       id: user!.id,
       name: name,
       description: description,
       image: url,
       price: price,
       brand: brand,
-      weight: weight,
+      type: type,
     );
 
 
@@ -70,28 +70,28 @@ class AdminServices
     final url=await ref.getDownloadURL();
 
 
-    Medicine medicine=Medicine(
+    Product medicine=Product(
       id: user!.id,
       name: name,
       description: description,
       image: url,
       price: price,
       type: type,
-      companyName: companyName,
+      brand: companyName,
     );
 
 
     await FirebaseFirestore.instance.collection('Medicines').doc().set(medicine.toJson());
 
   }
-  Future<List<EquipmentAndSupplies>> getEquipment() async
+  static Future<List<Product>> getEquipment() async
   {
-    List<EquipmentAndSupplies> equipment=[];
+    List<Product> equipment=[];
     await FirebaseFirestore.instance.collection('Equipments').get().then((value) {
       for(int i = 0; i < value.docs.length; i++)
       {
 
-        equipment.add(EquipmentAndSupplies.fromJson(value.docs[i].data()));
+        equipment.add(Product.fromJson(value.docs[i].data()));
         equipment[i].docId=value.docs[i].id;
       }
 
@@ -100,30 +100,28 @@ class AdminServices
 
     return equipment;
   }
-  Future<List<EquipmentAndSupplies>> getSupplies() async
+  static Future<List<Product>> getSupplies() async
   {
-    List<EquipmentAndSupplies> supplies=[];
+    List<Product> supplies=[];
     await FirebaseFirestore.instance.collection('Supplies').get().then((value) {
       for(int i = 0; i < value.docs.length; i++)
       {
 
-        supplies.add(EquipmentAndSupplies.fromJson(value.docs[i].data()));
+        supplies.add(Product.fromJson(value.docs[i].data()));
         supplies[i].docId=value.docs[i].id;
       }
 
     });
 
-
     return supplies;
   }
-  Future<List<Medicine>> getMedicine() async
+  static Future<List<Product>> getMedicine() async
   {
-    List<Medicine> medicine=[];
+    List<Product> medicine=[];
     await FirebaseFirestore.instance.collection('Medicines').get().then((value) {
       for(int i = 0; i < value.docs.length; i++)
       {
-
-        medicine.add(Medicine.fromJson(value.docs[i].data()));
+        medicine.add(Product.fromJson(value.docs[i].data()));
         medicine[i].docId=value.docs[i].id;
       }
 
@@ -133,10 +131,32 @@ class AdminServices
     return medicine;
   }
 
+  static Future<List<Order>> getOrders() async 
+  {
+    List<Order> orders=[];
+    await FirebaseFirestore.instance.collection('Orders').where('status' , isEqualTo: 'In Review').get().then((value) {
+      for(int i=0 ; i<value.docs.length ; i++)
+      {
+        orders.add(Order.fromJson(value.docs[i].data()));
+        orders[i].docId=value.docs[i].id;
+      }
+    });
+    return orders;
+  }
 
 
 
-
-
+  static Future<List<Order>> getAllOrders() async
+  {
+    List<Order> orders=[];
+    await FirebaseFirestore.instance.collection('Orders').get().then((value) {
+      for(int i=0 ; i<value.docs.length ; i++)
+      {
+        orders.add(Order.fromJson(value.docs[i].data()));
+        orders[i].docId=value.docs[i].id;
+      }
+    });
+    return orders;
+  }
 
 }

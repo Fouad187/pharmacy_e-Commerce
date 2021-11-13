@@ -18,7 +18,7 @@ class AddEquipmentTap extends StatefulWidget {
 class _AddEquipmentTapState extends State<AddEquipmentTap> {
   final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  String? name ,description,price,brand,weight;
+  String? name ,description,price,brand,type;
   AdminServices adminServices=AdminServices();
   File? _pickedimage;
   final ImagePicker _picker=ImagePicker();
@@ -150,20 +150,20 @@ class _AddEquipmentTapState extends State<AddEquipmentTap> {
                     const SizedBox(height: 10,),
                     TextFormField(
                       decoration: InputDecoration(
-                        hintText: 'Equipment Weight in Kg',
+                        hintText: 'Equipment Type ',
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(15) ,),
 
                       ),
                       validator: (value){
                         if(value!.isEmpty)
                         {
-                          return  'Please Enter Equipment Weight';
+                          return  'Please Enter Equipment Type';
                         }
                       },
                       onChanged: (value)
                       {
                         setState(() {
-                          weight=value;
+                          type=value;
                         });
                       },
                     ),
@@ -192,7 +192,7 @@ class _AddEquipmentTapState extends State<AddEquipmentTap> {
                                 name: name!,
                                 price: price!,
                                 brand: brand!,
-                                weight: weight!,
+                                type : type!,
                                 context: context,
                               );
                               Navigator.pushReplacementNamed(context, AdminHomeScreen.id);
