@@ -30,7 +30,8 @@ class CartTap extends StatelessWidget {
           Container(
               width: double.infinity,
               height: 50,
-              child: FlatButton(onPressed: ()  {
+              child: FlatButton(
+                onPressed: ()  {
 
                 Navigator.pushNamed(context, PaymentScreen.id);
               }, child: Column(

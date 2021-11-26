@@ -171,14 +171,15 @@ class _AddEquipmentTapState extends State<AddEquipmentTap> {
 
                     Container(
                       width: double.infinity,
-                      child: FlatButton(onPressed: () async {
-                        final instance =
-                        Provider.of<ModalHud>(context, listen: false);
+                      child: FlatButton(
+                        onPressed: () async {
+                        final instance = Provider.of<ModalHud>(context, listen: false);
                         instance.changeIsLoading(true);
                         if(_globalKey.currentState!.validate())
                         {
                           _globalKey.currentState!.save();
                           try{
+
                             if(_pickedimage == null )
                             {
                               instance.changeIsLoading(false);

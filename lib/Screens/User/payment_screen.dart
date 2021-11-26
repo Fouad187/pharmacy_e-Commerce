@@ -227,6 +227,7 @@ class PaymentScreen extends StatelessWidget {
                   {
                     _globalKey.currentState!.save();
                     try{
+
                       UserModel? userInstance=Provider.of<UserData>(context,listen: false).user;
                       final cart=Provider.of<Cart>(context,listen: false);
 

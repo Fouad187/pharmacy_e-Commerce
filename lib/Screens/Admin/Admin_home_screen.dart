@@ -116,7 +116,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Kcolor,
-        currentIndex: selectedIndex,
+        currentIndex: selectedIndex, //0
         onTap: (index){
           setState(() {
             selectedIndex=index;
